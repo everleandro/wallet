@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@nuxtjs/device": "^3.2.4",
-    "drocket": "file:../../../../media/ever/DATA/Vue/drocket/drocket-1.0.21.tgz",
+    "drocket": "^1.0.22",
     "nuxt": "^3.13.2",
     "nuxt-swiper": "^1.2.2",
     "swiper": "^11.1.14",
