@@ -20,7 +20,7 @@
       </e-list>
       <template #append>
         <div class="pa-2">
-          <e-button :prepend-icon="$icon.exit" color="secondary" block small @click="logOut">cerrar Sesion</e-button>
+          <e-button :prepend-icon="$icon.logout" color="secondary" block small @click="logOut">cerrar Sesion</e-button>
         </div>
       </template>
     </e-drawer>
@@ -55,8 +55,8 @@ watch(() => router, () => {
   } else if (!drawerModel.value && (viewport.xl || viewport.lg)) {
     drawerModel.value = true
   }
-
 }, { deep: true, immediate: true });
+
 const logOut = () => {
   router.push({ path: "/" })
 }

@@ -67,6 +67,7 @@ import user from "assets/images/user.png";
         border-radius: 9999px;
         padding: 1rem;
         min-width: unset;
+        margin-bottom: env(safe-area-inset-bottom, 10px);
         bottom: 20px;
 
         @include mixin.xs {

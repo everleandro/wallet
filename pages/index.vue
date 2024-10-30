@@ -9,7 +9,7 @@
             <e-card class="pa-3 ma-3">
                 <div class="index-content">
                     <e-form ref="form" v-model="data.validForm" class="mb-3">
-                        <e-textfield v-model="data.email" cols="24" placeholder="Email" :rules="[_email, _required]" />
+                        <e-textfield v-model="data.email" cols="24" placeholder="Email" :rules="[_required, _email]" />
                         <e-textfield v-model="data.password" type="password" cols="24" :rules="[_required]" />
                     </e-form>
                     <e-button :disabled="!data.validForm" :loading="data.loading" block color="primary"
@@ -22,9 +22,9 @@
 <script setup lang="ts">
 import type { Form } from "drocket";
 const router = useRouter()
-definePageMeta({
-    layout: false
-})
+// definePageMeta({
+//     layout: false
+// })
 const { _required, _email } = useRules();
 const form = ref<Form>()
 
@@ -49,10 +49,8 @@ const login = async () => {
 </script>
 <style lang="scss">
 .index-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    max-width: 600px;
+    margin: auto;
 
     .sign-up {
         text-decoration: underline;

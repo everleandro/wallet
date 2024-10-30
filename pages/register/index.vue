@@ -3,9 +3,8 @@
         <div>
             <e-transition-expand>
                 <app-message v-show="data.emailSended">
-                    Hemos enviado un mensaje a su correo elctronico para verificar su cuenta, por favor verifique su
-                    bandeja
-                    de entrada
+                    Follow the link in the email we sent to {{ data.email }}. The email can take up to 1 minute
+                    to arrive.
                 </app-message>
             </e-transition-expand>
             <div class="register-header mb-8">
@@ -17,7 +16,7 @@
             <e-card class="pa-3">
                 <div class="register-content">
                     <e-form ref="form" v-model="data.validForm" :disabled="data.emailSended" class="mb-3">
-                        <e-textfield v-model="data.email" cols="24" placeholder="Email" :rules="[_email, _required]" />
+                        <e-textfield v-model="data.email" cols="24" placeholder="Email" :rules="[_required, _email]" />
                     </e-form>
                     <e-button :disabled="!data.validForm || data.emailSended" :loading="data.loading" block
                         color="primary" @click="next">
@@ -36,9 +35,6 @@
 <script setup lang="ts">
 import type { Form } from "drocket";
 const router = useRouter()
-definePageMeta({
-    layout: false
-})
 const { _required, _email } = useRules();
 const form = ref<Form>()
 
@@ -57,16 +53,17 @@ const next = async () => {
         setTimeout(() => {
             data.loading = false;
             data.emailSended = true;
+            setTimeout(() => {
+                router.push('/register/account-type')
+            }, 4000)
         }, 1000)
     }
 }
 </script>
 <style lang="scss">
 .register-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    max-width: 600px;
+    margin: auto;
 
     .therms {
         line-height: normal;

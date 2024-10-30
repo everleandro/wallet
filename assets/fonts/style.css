@@ -27,6 +27,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-logout:before {
+  content: "\e901";
+}
 .icon-bell:before {
   content: "\e918";
 }
@@ -377,9 +380,6 @@
 }
 .icon-exit:before {
   content: "\e900";
-}
-.icon-fav:before {
-  content: "\e901";
 }
 .icon-menu:before {
   content: "\e902";
