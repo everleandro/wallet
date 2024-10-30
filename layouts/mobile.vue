@@ -1,0 +1,77 @@
+<template>
+  <e-app type="mobile-layout">
+    <e-bar app fixed color="primary" class="mobile-app-bar">
+      <e-avatar v-ripple :src="user" size="50" />
+      <e-spacer />
+      <e-button :icon="$icon.bell" text color="white" />
+      <e-button :icon="$icon.bell" text color="white" />
+    </e-bar>
+    <e-main class="pb-16">
+      <e-container>
+        <slot />
+      </e-container>
+    </e-main>
+    <footer class="mobile__footer primary">
+      <e-tab-group v-model="tabsModel" grow>
+        <e-tab v-for="(link, i) in links" :prepend-icon="link.icon" stacked :to="link.to" color="white"> {{ link.title
+          }}</e-tab>
+      </e-tab-group>
+    </footer>
+  </e-app>
+</template>
+<script lang="ts" setup>
+import { useBreakpoint } from 'drocket'
+import user from "assets/images/user.png";
+
+const { $icon } = useNuxtApp();
+const tabsModel = ref(1)
+
+const links = [
+  { icon: $icon.home, title: "Home", to: "/home" },
+  { icon: $icon.recipients, title: "Recipients", to: "/recipients" },
+  { icon: $icon.payment, title: "Payments", to: "/payment" },
+  { icon: $icon.account, title: "Account", to: "/account" },
+];
+
+</script>
+
+<style lang="scss">
+.e-app[type="mobile-layout"] {
+  .mobile-app-bar {
+    .e-avatar__wrapper {
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+  }
+
+  .mobile__footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0px -2px 5px 0px rgba(0, 0, 0, 0.1);
+    display: flex;
+    padding-bottom: env(safe-area-inset-bottom, 20px);
+    /* El 20px es un valor base si el dispositivo no soporta env */
+    justify-content: space-around;
+    align-items: center;
+    z-index: 1000;
+
+    .e-tab.e-tab {
+      min-width: unset;
+    }
+
+    .e-tab__slider {
+      display: none;
+    }
+
+    .e-slide-group {
+      flex: 1;
+
+      .e-btn {
+        font-size: 12px;
+        text-transform: unset;
+      }
+    }
+  }
+}
+</style>

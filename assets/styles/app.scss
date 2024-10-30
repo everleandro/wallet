@@ -1,0 +1,25 @@
+@use "drocket/framework.scss";
+@use "drocket/styles.css";
+@use "assets/fonts/style.css";
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap");
+
+
+.page-enter-active,
+.page-leave-active {
+    transition: all 0.2s;
+}
+
+.page-enter-from,
+.page-leave-to {
+    opacity: 0;
+}
+
+
+.e-app {
+    background-color: var(--grey);
+
+}
+
+.text-underline {
+    text-decoration: underline;
+}
