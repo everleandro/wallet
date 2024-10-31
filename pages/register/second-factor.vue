@@ -1,6 +1,6 @@
 <template>
     <div class="country-page">
-        <app-otp-dialog v-model="data.dialogOtpModel" />
+        <register-otp-dialog v-model="data.dialogOtpModel" />
         <div>
             <div class="country-page__header mb-8">
                 <h1 class="text-center mb-3">Verify your phone number with a code</h1>

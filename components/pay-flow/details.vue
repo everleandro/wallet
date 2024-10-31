@@ -8,6 +8,7 @@
             <app-select-currency />
         </div>
         <div class="payment-details__content">
+            <e-divider />
             <div class="payment-details__table">
                 <div class="payment-row">
                     <div class="payment-col">
@@ -25,7 +26,6 @@
                         60.73 Eur
                     </div>
                 </div>
-                <e-divider />
                 <div class="payment-row">
                     <div class="payment-col">
                         Card Fee

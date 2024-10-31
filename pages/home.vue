@@ -11,8 +11,9 @@
                 </div>
                 <app-transaction-list />
                 <e-divider class="mb-3 mt-n2" />
-                <e-button class="see-all-xs" text color="secondary" block outlined :append-icon="$icon.right">see
-                    all</e-button>
+                <e-button class="see-all-xs" text color="secondary" block outlined :append-icon="$icon.right">
+                    see all
+                </e-button>
             </div>
             <div class="contacts mt-8">
                 <div class="mb-3">

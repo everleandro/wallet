@@ -1,2 +1,3 @@
 import type { Link } from "./link";
-export type { Link };
+import type { PaymentMethod } from "./payment-method";
+export type { Link, PaymentMethod };

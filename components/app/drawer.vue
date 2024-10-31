@@ -61,6 +61,8 @@ const logOut = () => {
 @use "drocket/mixin.scss";
 
 .e-drawer {
+    z-index: 1002;
+
     &[data-type="desktop"] {
         display: none;
 
@@ -77,6 +79,5 @@ const logOut = () => {
         }
     }
 
-    z-index: 1002;
 }
 </style>

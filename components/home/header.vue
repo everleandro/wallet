@@ -1,6 +1,6 @@
 <template>
     <e-card class="home-header-card mb-8">
-        <dialog-add-money v-model="data.addModelDialog" />
+        <add-money-dialog v-model="data.addModelDialog" />
         <div class="home-header-card__title pa-4">
             <h2>Balance Total:</h2>
             <e-spacer></e-spacer>
