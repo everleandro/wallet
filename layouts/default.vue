@@ -1,71 +1,94 @@
 <template>
-  <e-app type="default-layout">
+  <e-app :type="$device.isMobile ? 'mobile-layout' : 'default-layout'">
     <e-bar app fixed color="primary">
-      <e-button icon="menu" text class="ml-1" @click="drawerModel = !drawerModel" color="white"></e-button>
-      <e-spacer></e-spacer>
+      <e-button icon="menu" text class="ml-1 d-none d-sm-block" color="white"
+        @click="data.drawerModelDesktop = !data.drawerModelDesktop" />
+      <e-spacer />
       <e-button :icon="$icon.bell" text class="ml-1" color="white"></e-button>
+      <e-button :icon="$icon.account" class="d-block d-sm-none" text color="white"
+        @click="data.drawerModelMobile = !data.drawerModelMobile" />
     </e-bar>
-
-    <e-drawer v-model="drawerModel" fixed class="primary">
-      <template #prepend>
-        <e-list-item :prepend-avatar="user" title="Jhon Smith" x-large class="mb-0" color="white"
-          subtitle="smith.93@gmail.com">
-        </e-list-item>
-        <e-divider></e-divider>
-      </template>
-      <e-list>
-        <e-list-item v-for="link in links" :prepend-icon="link.icon" color="white" large :to="link.to">
-          {{ link.title }}
-        </e-list-item>
-      </e-list>
-      <template #append>
-        <div class="pa-2">
-          <e-button :prepend-icon="$icon.logout" color="secondary" block small @click="logOut">cerrar Sesion</e-button>
-        </div>
-      </template>
-    </e-drawer>
+    <app-drawer v-if="$device.isMobile" v-model="data.drawerModelMobile" right mobile :links="MOBILE_DRAWER_LINKS" />
+    <app-drawer v-else v-model="data.drawerModelDesktop" :links="DESKTOP_LINKS" />
 
     <e-main>
       <e-container>
         <slot />
       </e-container>
     </e-main>
+
+    <footer class="mobile__footer primary d-flex d-sm-none">
+      <e-tab-group v-model="data.tabModel" grow>
+        <e-tab v-for="(link, i) in MOBILE_LINKS" :key="i" :prepend-icon="link.icon" stacked :to="link.to" color="white">
+          {{ link.title }}
+        </e-tab>
+      </e-tab-group>
+    </footer>
+
   </e-app>
 </template>
 <script lang="ts" setup>
-import { useBreakpoint } from 'drocket'
+import { DESKTOP_LINKS, MOBILE_LINKS, MOBILE_DRAWER_LINKS } from '@/constants/links'
 
-const drawerModel = ref(true);
-const { $icon } = useNuxtApp();
-const router = useRouter();
-const { viewport } = useBreakpoint()
-
-import user from "assets/images/user.png";
-
-const links = [
-  { icon: $icon.home, title: "Home", to: "/home" },
-  { icon: $icon.recipients, title: "Recipients", to: "/recipients" },
-  { icon: $icon.payment, title: "Payments", to: "/payment" },
-  { icon: $icon.account, title: "Account", to: "/account" },
-];
-
-watch(() => router, () => {
-  if (drawerModel.value && (viewport.xs || viewport.sm || viewport.md)) {
-    drawerModel.value = false
-  } else if (!drawerModel.value && (viewport.xl || viewport.lg)) {
-    drawerModel.value = true
-  }
-}, { deep: true, immediate: true });
-
-const logOut = () => {
-  router.push({ path: "/" })
-}
+const data = reactive({
+  drawerModelMobile: false,
+  drawerModelDesktop: true,
+  tabModel: 1
+})
 </script>
 
 <style lang="scss">
-.e-app[type="default-layout"] {
-  .e-drawer__prepend {
-    background-color: var(--primary-dark);
+.e-app {
+  .e-overlay {
+    z-index: 1001;
+  }
+
+  .e-main {
+    padding-top: 64px !important;
+  }
+
+  &[type="default-layout"] {
+    .e-drawer__prepend {
+      background-color: var(--primary-dark);
+    }
+  }
+
+  .mobile__footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0px -2px 5px 0px rgba(0, 0, 0, 0.1);
+    padding-bottom: env(safe-area-inset-bottom, 20px);
+    /* El 20px es un valor base si el dispositivo no soporta env */
+    justify-content: space-around;
+    align-items: center;
+    z-index: 2;
+
+    .e-tab.e-tab {
+      min-width: unset;
+    }
+
+    .e-icon--size-default {
+      font-size: 18px;
+    }
+
+    .e-tab__slider {
+      display: none;
+    }
+
+    .e-slide-group {
+      flex: 1;
+
+      .e-btn {
+        font-size: 12px;
+        font-weight: 300;
+        text-transform: unset;
+      }
+    }
+  }
+
+  .e-main {
+    padding-bottom: calc(env(safe-area-inset-bottom, 20px) + 54px);
   }
 }
 </style>

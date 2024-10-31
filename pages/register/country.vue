@@ -25,6 +25,9 @@
 </template>
 <script lang="ts" setup>
 import type { Form } from "drocket";
+definePageMeta({
+    layout: 'empty',
+})
 const router = useRouter()
 
 const { _required } = useRules();

@@ -34,6 +34,9 @@
 </template>
 <script setup lang="ts">
 import type { Form } from "drocket";
+definePageMeta({
+    layout: 'empty',
+})
 const router = useRouter()
 const { _required, _email } = useRules();
 const form = ref<Form>()

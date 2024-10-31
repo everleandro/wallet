@@ -27,6 +27,21 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-currency-btc:before {
+  content: "\e925";
+}
+.icon-currency-eur:before {
+  content: "\e92a";
+}
+.icon-currency-rub:before {
+  content: "\e92b";
+}
+.icon-currency-sign:before {
+  content: "\e92c";
+}
+.icon-currency-usd:before {
+  content: "\e92d";
+}
 .icon-logout:before {
   content: "\e901";
 }

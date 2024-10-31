@@ -1,6 +1,8 @@
 <template>
     <div>
-        <h1> Account</h1>
+        <h2>
+            Transfer Pay
+        </h2>
     </div>
 </template>
 <script lang="ts" setup>

@@ -1,5 +1,6 @@
 <template>
     <e-card class="home-header-card mb-8">
+        <dialog-add-money v-model="data.addModelDialog" />
         <div class="home-header-card__title pa-4">
             <h2>Balance Total:</h2>
             <e-spacer></e-spacer>
@@ -8,30 +9,30 @@
         <e-divider />
         <div class="home-header-card__actions">
             <e-row>
-                <e-col cols="12" sm="auto">
-                    <e-button :prepend-icon="$icon.recharge" color="primary" block rounded
-                        :x-small="$device.isMobile">Recargar</e-button>
+                <e-col>
+                    <e-button :prepend-icon="$icon.recharge" color="primary" block rounded :x-small="$device.isMobile"
+                        @click="addMoney">Add money</e-button>
                 </e-col>
-                <e-col cols="12" sm="auto">
+                <e-col>
                     <e-button :prepend-icon="$icon.withdraw" rounded :x-small="$device.isMobile"
                         block>Extraer</e-button>
                 </e-col>
-                <e-col cols="12" sm="auto">
-                    <e-button :prepend-icon="$icon.transfer" rounded :x-small="$device.isMobile" block>Transferir
-                    </e-button>
-                </e-col>
-                <e-col cols="12" sm="auto">
-                    <e-button :prepend-icon="$icon.trade" rounded :x-small="$device.isMobile" block>Convertir
-                    </e-button>
-                </e-col>
                 <e-col>
-                    <e-button :prepend-icon="$icon.pay" rounded :x-small="$device.isMobile" block>Pagar
+                    <e-button :prepend-icon="$icon.trade" rounded :x-small="$device.isMobile" block>Convertir
                     </e-button>
                 </e-col>
             </e-row>
         </div>
     </e-card>
 </template>
+<script lang="ts" setup>
+const data = reactive({
+    addModelDialog: false
+})
+const addMoney = () => {
+    data.addModelDialog = true
+}
+</script>
 <style lang="scss">
 @use "drocket/mixin.scss";
 
@@ -41,23 +42,26 @@
     display: flex;
     flex-wrap: wrap;
 
-    h2 {
-        font-size: 1.5rem;
-        margin-bottom: 10px;
-        opacity: .6;
-        margin-bottom: 0;
-        font-weight: 500;
 
-        @include mixin.xs {
-            font-size: 1.2rem;
-        }
-    }
 
     &__title {
         width: 100%;
         display: flex;
         align-items: baseline;
         flex-wrap: wrap;
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            opacity: .6;
+            margin-bottom: 0;
+            font-weight: 500;
+
+            @include mixin.xs {
+                font-size: 1.2rem;
+            }
+        }
+
     }
 
     &__total {

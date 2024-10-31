@@ -23,6 +23,9 @@
 </template>
 <script lang="ts" setup>
 import { AccountType } from "@/components/register/account-type-card.vue";
+definePageMeta({
+    layout: 'empty',
+})
 onMounted(() => {
     console.log("AccountType", AccountType.BUSINESS);
 })
