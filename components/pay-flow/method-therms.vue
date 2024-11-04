@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="root-color--text">
         <h2>
             {{ paymentMethod?.text }}
         </h2>

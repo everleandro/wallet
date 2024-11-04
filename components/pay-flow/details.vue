@@ -67,9 +67,12 @@
 </template>
 <style lang="scss">
 .payment-details {
+    flex-direction: column;
+
     &__header {
         display: flex;
         align-items: center;
+        flex: 1;
 
         h2 {
             font-size: 1.2rem;

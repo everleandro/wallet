@@ -17,20 +17,22 @@
                 <div class="add-money__body pa-4 dialog-scrollable__body">
                     <e-window v-model="data.stepperModel">
                         <e-window-item :value="STEP.PAYMENT_INFO">
-                            <add-money-payment-data v-model="paymentInfo" @change-payment-method="setStep(2)" />
+                            <add-money-payment-data v-model="paymentInfo"
+                                @change-payment-method="setStep(STEP.CHOSSE_PAYMENT_METHOD)" />
                         </e-window-item>
                         <e-window-item :value="STEP.CHOSSE_PAYMENT_METHOD">
                             <pay-flow-available-methods v-model="paymentInfo.paymentMethod" />
                         </e-window-item>
                         <e-window-item :value="STEP.PAYMENT_METHOD_THERMS">
-                            <pay-flow-method-therms :payment-method="paymentInfo.paymentMethod" />
+                            <pay-flow-method-therms :payment-method="paymentInfo.paymentMethod"
+                                @accept="data.accept = $event" />
                         </e-window-item>
                         <e-window-item :value="STEP.PROOF_DOCUMENT">
-                            <pay-flow-proof-document />
+                            <pay-flow-proof-document @file="paymentInfo.file = $event" />
                         </e-window-item>
                     </e-window>
                 </div>
-                <div class="dialog-scrollable__footer">
+                <div class="dialog-scrollable__footer add-money__footer">
                     <e-button color="primary" class="next-button" :loading="data.loading" :disabled="nextDisabled" block
                         @click="next">
                         Continue
@@ -48,10 +50,10 @@ export interface Props {
     modelValue: boolean,
 }
 const enum STEP {
-    PAYMENT_INFO = 1,
-    CHOSSE_PAYMENT_METHOD = 2,
-    PAYMENT_METHOD_THERMS = 3,
-    PROOF_DOCUMENT = 4,
+    PAYMENT_INFO,
+    CHOSSE_PAYMENT_METHOD,
+    PAYMENT_METHOD_THERMS,
+    PROOF_DOCUMENT,
 }
 
 const props = defineProps<{
@@ -66,10 +68,12 @@ const paymentInfo = reactive({
     amount: 0,
     currencyTo: 0,
     currencyFrom: 0,
+    file: <Blob | undefined>undefined
 })
 
 const data = reactive({
     loading: false,
+    accept: false,
     stepperModel: STEP.PAYMENT_INFO
 })
 
@@ -77,8 +81,8 @@ const model = computed({
     get: () => props.modelValue,
     set: (value: boolean) => emit('update:modelValue', value)
 })
+
 const dialogHeaderText = computed(() => {
-    // data.stepperModel === 1 ? 'Add Money' : 'Payment Method'
     switch (data.stepperModel) {
         case STEP.PAYMENT_INFO:
             return 'Add Money';
@@ -91,6 +95,16 @@ const dialogHeaderText = computed(() => {
     }
 })
 const nextDisabled = computed(() => {
+    switch (data.stepperModel) {
+        case STEP.PAYMENT_INFO:
+            return !paymentInfo.paymentMethod;
+        case STEP.CHOSSE_PAYMENT_METHOD:
+            return !paymentInfo.paymentMethod;
+        case STEP.PAYMENT_METHOD_THERMS:
+            return !data.accept;
+        case STEP.PROOF_DOCUMENT:
+            return !paymentInfo.file;
+    }
 
     return !paymentInfo.paymentMethod
 })
@@ -125,20 +139,32 @@ const setStep = (step: number): void => {
 
 </script>
 <style lang="scss">
+@use "drocket/mixin.scss";
+
 .add-money__content {
     .e-dialog.e-dialog--active {
         height: 100%;
         flex-direction: column;
 
-        .e-card {
-            flex-direction: column;
+        @include mixin.xs {
+            border-radius: 0;
         }
+
+        // .e-card {
+        //     flex-direction: column;
+        // }
 
         .add-money {
             &__container {
                 display: flex;
                 flex-direction: column;
                 padding-bottom: env(safe-area-inset-bottom, 0);
+            }
+
+            &__footer {
+                .e-btn {
+                    border-radius: 0;
+                }
             }
         }
     }

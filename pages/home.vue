@@ -1,11 +1,6 @@
 <template>
     <div>
         <div class="home-page">
-            <pre>{{ counter.$state }}</pre>
-            <button @click="counter.fail">Test Errors</button>
-            <button @click="counter.increment()">Increment</button>
-            <button @click="counter.decrementToZero()">Decrement to zero</button>
-            <button @click="counter.changeMe()">Change me</button>
             <home-header />
             <home-currency />
             <div class="transaction mt-8">
