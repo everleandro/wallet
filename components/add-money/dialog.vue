@@ -3,13 +3,14 @@
         <e-dialog v-model="model" max-width="500" persistent :fullscreen="$device.isMobile">
             <div class="add-money__container dialog-scrollable__wrapper">
                 <div class="dialog-scrollable__header">
-                    <e-bar class="mb-0" depressed>
+                    <e-bar :class="{ 'mb-0': true }" :color="$device.isMobile ? 'primary' : 'white'"
+                        :depressed="$device.isDesktopOrTablet">
                         <!-- <e-button v-show="data.stepperModel !== STEP.PAYMENT_INFO" :icon="$icon.left" text small
                             color="secondary" @click="setStep(1)" /> -->
                         <h1 class="ml-4">{{ dialogHeaderText }}</h1>
                         <e-spacer />
                         <e-button v-show="data.stepperModel !== STEP.CHOSSE_PAYMENT_METHOD" :icon="$icon.close" text
-                            small color="secondary" @click="close" />
+                            small :color="$device.isMobile ? 'white' : 'secondary'" @click="close" />
                     </e-bar>
                 </div>
                 <e-divider />
@@ -30,7 +31,8 @@
                     </e-window>
                 </div>
                 <div class="dialog-scrollable__footer">
-                    <e-button color="primary" :loading="data.loading" :disabled="nextDisabled" block @click="next">
+                    <e-button color="primary" class="next-button" :loading="data.loading" :disabled="nextDisabled" block
+                        @click="next">
                         Continue
                     </e-button>
                 </div>
@@ -39,6 +41,8 @@
     </div>
 </template>
 <script lang="ts" setup>
+import type { PaymentMethod } from '~/types';
+
 
 export interface Props {
     modelValue: boolean,
@@ -58,7 +62,7 @@ const emit = defineEmits<{
     (e: 'update:modelValue', value: boolean): void
 }>()
 const paymentInfo = reactive({
-    paymentMethod: undefined,
+    paymentMethod: <PaymentMethod | undefined>undefined,
     amount: 0,
     currencyTo: 0,
     currencyFrom: 0,
@@ -73,7 +77,19 @@ const model = computed({
     get: () => props.modelValue,
     set: (value: boolean) => emit('update:modelValue', value)
 })
-const dialogHeaderText = computed(() => data.stepperModel === 1 ? 'Add Money' : 'Payment Method')
+const dialogHeaderText = computed(() => {
+    // data.stepperModel === 1 ? 'Add Money' : 'Payment Method'
+    switch (data.stepperModel) {
+        case STEP.PAYMENT_INFO:
+            return 'Add Money';
+        case STEP.CHOSSE_PAYMENT_METHOD:
+            return 'Payment Method';
+        case STEP.PAYMENT_METHOD_THERMS:
+            return 'Payment Method Therms';
+        case STEP.PROOF_DOCUMENT:
+            return 'Proof Document';
+    }
+})
 const nextDisabled = computed(() => {
 
     return !paymentInfo.paymentMethod

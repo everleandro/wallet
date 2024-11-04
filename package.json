@@ -11,12 +11,17 @@
   },
   "dependencies": {
     "@nuxtjs/device": "^3.2.4",
+    "@pinia/nuxt": "^0.7.0",
     "drocket": "^1.0.24",
     "nuxt": "^3.13.2",
     "nuxt-swiper": "^1.2.2",
+    "pinia": "^2.2.6",
     "swiper": "^11.1.14",
     "vue": "latest",
     "vue-router": "latest"
+  },
+  "overrides": {
+    "vue": "latest"
   },
   "devDependencies": {
     "sass": "^1.80.4"

@@ -22,7 +22,7 @@ const { _required, _more_than_0 } = useRules();
 
 export interface Props {
     modelValue: {
-        paymentMethod: PaymentMethod,
+        paymentMethod: PaymentMethod | undefined,
         amount: number | string,
         currencyTo: number | string,
         currencyFrom: number | string,

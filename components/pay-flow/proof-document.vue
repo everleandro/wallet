@@ -1,6 +1,6 @@
 <template>
     <div>
-        proof document here
+        proof document here s
     </div>
 </template>
 <script lang="ts" setup>

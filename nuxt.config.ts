@@ -8,7 +8,9 @@ export default defineNuxtConfig({
     pageTransition: { name: "page", mode: "out-in" },
     layoutTransition: false,
   },
-
+  imports: {
+    dirs: ["./stores"],
+  },
   vite: {
     build: {
       sourcemap: true,
@@ -23,5 +25,5 @@ export default defineNuxtConfig({
     },
   },
 
-  modules: ["@nuxtjs/device", "nuxt-swiper"],
+  modules: ["@nuxtjs/device", "@pinia/nuxt", "nuxt-swiper", "@pinia/nuxt"],
 });
